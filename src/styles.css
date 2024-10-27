@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+/* Asegura que las tarjetas (p-cards) ocupen el ancho completo */
+p-card {
+    width: 100%;
+    margin-bottom: 20px; /* Espacio entre las tarjetas */
+  }
+  
+  /* Centrar el texto dentro del primer p-card */
+  p-card .m-0 {
+    text-align: center;
+  }
+  
+  /* Asegura que los toolbars ocupen todo el ancho */
+  p-toolbar {
+    width: 100%;
+    margin-bottom: 20px; /* Espacio entre el toolbar y la siguiente sección */
+  }
+  
+  /* Estilo para los botones en la tabla */
+  button {
+    margin-right: 5px;
+  }
+  

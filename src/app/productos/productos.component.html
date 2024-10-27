@@ -1,0 +1,72 @@
+<app-siderbar></app-siderbar>
+<p-toast></p-toast>
+
+<p-card header="Producto">
+  <p class="m-0">
+    Información del producto aquí.
+  </p>
+</p-card>
+
+<!-- Toolbar con botón para crear un nuevo producto -->
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <button pButton type="button" label="Nuevo Producto" icon="pi pi-plus" class="p-mr-2" (click)="openNew()"></button>
+  </div>
+</p-toolbar>
+
+<p-card header="Listar Productos">
+  <p-table *ngIf="productos && productos.length > 0" [value]="productos" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Descripción</th>
+        <th style="width: 8rem">Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-producto>
+      <tr>
+        <td>{{ producto.id }}</td>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.precio | currency }}</td>
+        <td>{{ producto.descripcion }}</td>
+        <td>
+          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProducto(producto)"></button>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteProducto(producto)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Mensaje si no hay productos -->
+  <p *ngIf="productos.length === 0">No hay productos para mostrar.</p>
+</p-card>
+
+<!-- Diálogo para crear/editar producto -->
+<p-dialog [(visible)]="productoDialog" [modal]="true" [style]="{width: '50vw'}" header="Detalles del Producto" [closable]="false">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" pInputText [(ngModel)]="producto.nombre" required />
+    </div>
+
+    <div class="p-field">
+      <label for="precio">Precio</label>
+      <input id="precio" type="number" pInputText [(ngModel)]="producto.precio" required />
+    </div>
+
+    <div class="p-field">
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" rows="3" pInputTextarea [(ngModel)]="producto.descripcion"></textarea>
+    </div>
+  </div>
+
+  <p-footer>
+    <button pButton type="button" label="Guardar" icon="pi pi-check" (click)="saveProducto()"></button>
+    <button pButton type="button" label="Cancelar" icon="pi pi-times" class="p-button-secondary" (click)="hideDialog()"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- Confirmación de eliminación -->
+<p-confirmDialog></p-confirmDialog>
